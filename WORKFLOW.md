@@ -50,11 +50,11 @@ Both repositories deploy as separate pods on OpenShift Local with independent li
 
 ```bash
 # Clone API repository
-git clone https://github.com/slohja/reservation-system-api.git
+git clone https://github.com/xpagesbeast/reservation-system-api.git
 cd reservation-system-api
 
 # Clone UI repository
-git clone https://github.com/slohja/reservation-system-ui.git
+git clone https://github.com/xpagesbeast/reservation-system-ui.git
 cd reservation-system-ui
 ```
 
@@ -98,7 +98,7 @@ oc new-project reservation-system
 
 1. **Navigate to API repository**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-api
+   cd /IdeaProjects/reservation-system-api
    ```
 
 2. **Create a new branch**
@@ -133,18 +133,18 @@ oc new-project reservation-system
 
 2. **Build the Docker image**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-api
+   cd /IdeaProjects/reservation-system-api
    podman build -t reservation-system-api:latest .
    ```
 
 3. **Tag the image for Docker Hub**
    ```bash
-   podman tag reservation-system-api:latest docker.io/slohja/reservation-system-api:latest
+   podman tag reservation-system-api:latest docker.io/xpagesbeast/reservation-system-api:latest
    ```
 
 4. **Push to Docker Hub**
    ```bash
-   podman push docker.io/slohja/reservation-system-api:latest
+   podman push docker.io/xpagesbeast/reservation-system-api:latest
    ```
 
 ### Pushing Code to GitHub
@@ -173,7 +173,7 @@ oc new-project reservation-system
 
 2. **Navigate to OpenShift manifests directory**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-api/openshift
+   cd /IdeaProjects/reservation-system-api/openshift
    ```
 
 3. **Apply ConfigMap** (if configuration changed)
@@ -183,7 +183,7 @@ oc new-project reservation-system
 
 4. **Update deployment with new image**
    ```bash
-   oc set image deployment/reservation-system-api api=docker.io/slohja/reservation-system-api:latest
+   oc set image deployment/reservation-system-api api=docker.io/xpagesbeast/reservation-system-api:latest
    ```
 
    Or re-apply the deployment manifest:
@@ -214,7 +214,7 @@ oc new-project reservation-system
 
 1. **Navigate to UI repository**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-ui
+   cd /IdeaProjects/reservation-system-ui
    ```
 
 2. **Install dependencies** (first time only)
@@ -254,7 +254,7 @@ oc new-project reservation-system
 
 2. **Build the production React app**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-ui
+   cd /IdeaProjects/reservation-system-ui
    npm run build
    ```
 
@@ -265,12 +265,12 @@ oc new-project reservation-system
 
 4. **Tag the image for Docker Hub**
    ```bash
-   podman tag reservation-system-ui:latest docker.io/slohja/reservation-system-ui:latest
+   podman tag reservation-system-ui:latest docker.io/xpagesbeast/reservation-system-ui:latest
    ```
 
 5. **Push to Docker Hub**
    ```bash
-   podman push docker.io/slohja/reservation-system-ui:latest
+   podman push docker.io/xpagesbeast/reservation-system-ui:latest
    ```
 
 ### Pushing Code to GitHub
@@ -299,7 +299,7 @@ oc new-project reservation-system
 
 2. **Navigate to OpenShift manifests directory**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-ui/openshift
+   cd /IdeaProjects/reservation-system-ui/openshift
    ```
 
 3. **Apply ConfigMap** (if configuration changed)
@@ -309,7 +309,7 @@ oc new-project reservation-system
 
 4. **Update deployment with new image**
    ```bash
-   oc set image deployment/reservation-system-ui ui=docker.io/slohja/reservation-system-ui:latest
+   oc set image deployment/reservation-system-ui ui=docker.io/xpagesbeast/reservation-system-ui:latest
    ```
 
    Or re-apply the deployment manifest:
@@ -340,24 +340,24 @@ oc new-project reservation-system
 
 1. **Copy OpenShift manifests to API repository**
    ```bash
-   mkdir -p /Users/u404858/IdeaProjects/reservation-system-api/openshift
-   cp /Users/u404858/IdeaProjects/reservation-system/openshift-api-deployment.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-api/openshift/deployment.yaml
-   cp /Users/u404858/IdeaProjects/reservation-system/openshift-api-service.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-api/openshift/service.yaml
-   cp /Users/u404858/IdeaProjects/reservation-system/openshift-api-configmap.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-api/openshift/configmap.yaml
+   mkdir -p /IdeaProjects/reservation-system-api/openshift
+   cp /IdeaProjects/reservation-system/openshift-api-deployment.yaml \
+      /IdeaProjects/reservation-system-api/openshift/deployment.yaml
+   cp /IdeaProjects/reservation-system/openshift-api-service.yaml \
+      /IdeaProjects/reservation-system-api/openshift/service.yaml
+   cp /IdeaProjects/reservation-system/openshift-api-configmap.yaml \
+      /IdeaProjects/reservation-system-api/openshift/configmap.yaml
    ```
 
 2. **Update image name in deployment.yaml**
    ```yaml
    # Change image: reservation-system-api:latest
-   # To: image: docker.io/slohja/reservation-system-api:latest
+   # To: image: docker.io/xpagesbeast/reservation-system-api:latest
    ```
 
 3. **Deploy to OpenShift**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-api/openshift
+   cd /IdeaProjects/reservation-system-api/openshift
    oc apply -f configmap.yaml
    oc create secret generic db-credentials \
        --from-literal=username=your-db-username \
@@ -370,24 +370,24 @@ oc new-project reservation-system
 
 1. **Copy OpenShift manifests to UI repository**
    ```bash
-   mkdir -p /Users/u404858/IdeaProjects/reservation-system-ui/openshift
-   cp /Users/u404858/IdeaProjects/reservation-system/openshift-ui-deployment.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-ui/openshift/deployment.yaml
-   cp /Users/u404858/IdeaProjects/reservation-system-ui/openshift-ui-service.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-ui/openshift/service.yaml
-   cp /Users/u404858/IdeaProjects/reservation-system/openshift-ui-configmap.yaml \
-      /Users/u404858/IdeaProjects/reservation-system-ui/openshift/configmap.yaml
+   mkdir -p /IdeaProjects/reservation-system-ui/openshift
+   cp /IdeaProjects/reservation-system/openshift-ui-deployment.yaml \
+      /IdeaProjects/reservation-system-ui/openshift/deployment.yaml
+   cp /IdeaProjects/reservation-system-ui/openshift-ui-service.yaml \
+      /IdeaProjects/reservation-system-ui/openshift/service.yaml
+   cp /IdeaProjects/reservation-system/openshift-ui-configmap.yaml \
+      /IdeaProjects/reservation-system-ui/openshift/configmap.yaml
    ```
 
 2. **Update image name in deployment.yaml**
    ```yaml
    # Change image: reservation-system-ui:latest
-   # To: image: docker.io/slohja/reservation-system-ui:latest
+   # To: image: docker.io/xpagesbeast/reservation-system-ui:latest
    ```
 
 3. **Deploy to OpenShift**
    ```bash
-   cd /Users/u404858/IdeaProjects/reservation-system-ui/openshift
+   cd /IdeaProjects/reservation-system-ui/openshift
    oc apply -f configmap.yaml
    oc apply -f deployment.yaml
    oc apply -f service.yaml
@@ -489,7 +489,7 @@ oc logs <pod-name>
 **Image pull errors:**
 ```bash
 # Verify image exists on Docker Hub
-podman pull docker.io/slohja/reservation-system-api:latest
+podman pull docker.io/xpagesbeast/reservation-system-api:latest
 
 # Verify OpenShift can access Docker Hub
 oc get imagestream
@@ -553,7 +553,7 @@ All API endpoints use versioned paths (`/api/v1/`):
 ### API
 ```bash
 # Build
-cd /Users/u404858/IdeaProjects/reservation-system-api
+cd /IdeaProjects/reservation-system-api
 ./gradlew build
 
 # Run locally
@@ -563,17 +563,17 @@ cd /Users/u404858/IdeaProjects/reservation-system-api
 podman build -t reservation-system-api:latest .
 
 # Tag and push
-podman tag reservation-system-api:latest docker.io/slohja/reservation-system-api:latest
-podman push docker.io/slohja/reservation-system-api:latest
+podman tag reservation-system-api:latest docker.io/xpagesbeast/reservation-system-api:latest
+podman push docker.io/xpagesbeast/reservation-system-api:latest
 
 # Deploy to OpenShift
-oc set image deployment/reservation-system-api api=docker.io/slohja/reservation-system-api:latest
+oc set image deployment/reservation-system-api api=docker.io/xpagesbeast/reservation-system-api:latest
 ```
 
 ### UI
 ```bash
 # Install dependencies
-cd /Users/u404858/IdeaProjects/reservation-system-ui
+cd /IdeaProjects/reservation-system-ui
 npm install
 
 # Run locally
@@ -586,11 +586,11 @@ npm run build
 podman build -t reservation-system-ui:latest .
 
 # Tag and push
-podman tag reservation-system-ui:latest docker.io/slohja/reservation-system-ui:latest
-podman push docker.io/slohja/reservation-system-ui:latest
+podman tag reservation-system-ui:latest docker.io/xpagesbeast/reservation-system-ui:latest
+podman push docker.io/xpagesbeast/reservation-system-ui:latest
 
 # Deploy to OpenShift
-oc set image deployment/reservation-system-ui ui=docker.io/slohja/reservation-system-ui:latest
+oc set image deployment/reservation-system-ui ui=docker.io/xpagesbeast/reservation-system-ui:latest
 ```
 
 ### OpenShift
