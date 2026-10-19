@@ -1,0 +1,132 @@
+spring:
+  application:
+    name: reservation-system
+  profiles:
+    active: local
+
+reservation:
+  operating-hours:
+    spring: "12:00-00:00"
+    summer: "17:00-21:00"
+    fall: "12:00-00:00"
+    winter: "12:00-00:00"
+  season-dates:
+    spring: "03-01,05-31"
+    summer: "06-01,08-31"
+    fall: "09-01,11-30"
+    winter: "12-01,02-28"
+  deposit-amount: 100.00
+  cancellation-deadline-hours: 24
+  buffer-time-minutes: 10
+  time-zone: "America/Denver"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://127.0.0.1:13306/reservation_system?useSSL=false&serverTimezone=UTC
+    username: appuser
+    password: apppass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    com.reservation_system: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:13306/reservation_system_test?useSSL=false&serverTimezone=UTC
+    username: appuser
+    password: apppass
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    com.reservation_system: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:h2:mem:reservation_system;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+
+info:
+  app:
+    name: Lane Reservation API
+    description: API for managing lane reservations
+    version: 1.0.0
+logging:
+  level:
+    com.reservation_system: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    url: jdbc:mysql://127.0.0.1:13306/reservation_system?useSSL=false&serverTimezone=UTC
+    username: appuser
+    password: apppass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    com.reservation_system: INFO
+    org.springframework.web: WARN
+    org.hibernate: WARN

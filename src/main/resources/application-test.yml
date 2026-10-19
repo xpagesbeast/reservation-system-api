@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+opentelemetry:
+  exporter:
+    otlp:
+      endpoint: http://localhost:4317
+  traces:
+    exporter: otlp
