@@ -1,0 +1,7 @@
+.gradle
+build
+.idea
+.windsurf
+openspec
+.DS_Store
+*.log
